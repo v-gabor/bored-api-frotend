@@ -1,6 +1,6 @@
 import _Vue from "vue";
 import { GET_ACTIVITY } from "@/api/activity/index";
-import { ActivityRequestConfig } from "@/types/types";
+import { ActivityRequestConfig } from "@/types/index";
 
 const BoredApi = {
   install: (Vue: typeof _Vue) => {

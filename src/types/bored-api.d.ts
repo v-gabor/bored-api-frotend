@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { Activity, ActivityRequestParams } from "./types";
+import { Activity, ActivityRequestParams } from "./index";
 
 declare module "vue/types/vue" {
   interface VueConstructor {

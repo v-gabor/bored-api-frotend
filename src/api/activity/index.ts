@@ -1,4 +1,4 @@
-import { Activity, ActivityRequestConfig } from "@/types/types";
+import { Activity, ActivityRequestConfig } from "@/types/index";
 import { AxiosResponse, AxiosRequestConfig } from "axios";
 import AxiosService from "@/plugins/axios";
 
