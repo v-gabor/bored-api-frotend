@@ -1,4 +1,4 @@
-type ActivityType =
+export type ActivityType =
   | "education"
   | "recreational"
   | "social"
@@ -9,6 +9,12 @@ type ActivityType =
   | "music"
   | "busywork";
 
+export enum UIState {
+  Loading,
+  HasError,
+  Loaded,
+}
+
 export interface Activity {
   key: number;
   activity: string;
@@ -16,6 +22,7 @@ export interface Activity {
   type: ActivityType;
   participants: number;
   price: number;
+  error?: string;
 }
 
 export type ActivityRequestParams = {
