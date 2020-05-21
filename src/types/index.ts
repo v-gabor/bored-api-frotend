@@ -11,7 +11,7 @@ export type ActivityType =
 
 export enum UIState {
   Loading,
-  HasError,
+  NoData,
   Loaded,
 }
 
@@ -32,6 +32,7 @@ export type ActivityRequestParams = {
   type?: ActivityType;
   participants?: number;
   price?: number;
+  priceSlider?: number;
 };
 
 export interface ActivityRequestConfig {
