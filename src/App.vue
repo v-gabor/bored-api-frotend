@@ -7,7 +7,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
