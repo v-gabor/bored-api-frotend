@@ -2,7 +2,11 @@
   <v-container>
     <v-row class="fill-height">
       <v-col cols="12" md="7" class="pt-0 pb-0">
-        <v-row v-if="hasError" class="text-center fill-height activity-are" align="center">
+        <v-row
+          v-if="hasError"
+          class="text-center fill-height activity-are"
+          align="center"
+        >
           <v-col>
             Sorry!
             <br />
@@ -16,10 +20,19 @@
               <span class="headline flex-shrink-1 mb-2">You should:</span>
               <v-card class="flex-grow-1 text-center">
                 <v-card-text class="fill-height">
-                  <v-row class="text-center fill-height headline" align="center">
-                    <v-col v-if="!isLoading">{{ selectedActivity.activity }}</v-col>
+                  <v-row
+                    class="text-center fill-height headline"
+                    align="center"
+                  >
+                    <v-col v-if="!isLoading">
+                      {{ selectedActivity.activity }}
+                    </v-col>
                     <v-col v-else>
-                      <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
+                      <v-progress-circular
+                        :size="50"
+                        color="primary"
+                        indeterminate
+                      ></v-progress-circular>
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -30,7 +43,8 @@
                   class="white--text"
                   block
                   @click="saveForLater"
-                >Save for later</v-btn>
+                  >Save for later</v-btn
+                >
               </div>
             </div>
           </v-col>
@@ -55,7 +69,12 @@
               :rules="numberRule"
             >
               <template v-slot:append-outer>
-                <v-btn class="ma-0 mr-1" fab x-small @click="decrementParticipants">
+                <v-btn
+                  class="ma-0 mr-1"
+                  fab
+                  x-small
+                  @click="decrementParticipants"
+                >
                   <v-icon>mdi-minus</v-icon>
                 </v-btn>
                 <v-btn class="ma-0" fab x-small @click="incrementParticipants">
@@ -83,7 +102,8 @@
               class="white--text"
               block
               @click="filterActivity"
-            >Hit me with a new one!</v-btn>
+              >Hit me with a new one!</v-btn
+            >
           </div>
         </div>
       </v-col>
@@ -98,7 +118,7 @@ import {
   UIState,
   Activity,
   ActivityType,
-  ActivityRequestParams
+  ActivityRequestParams,
 } from "../types/index";
 import { Action } from "vuex-class";
 
@@ -120,39 +140,39 @@ export default class Home extends Vue {
     "cooking",
     "relaxation",
     "music",
-    "busywork"
+    "busywork",
   ];
 
   value = null;
 
   numberRule = [
-    (v: string) => {
+    (v: string): string | boolean => {
       if (!isNaN(parseInt(v))) return true;
       return "Not a number!";
-    }
+    },
   ];
 
-  get hasError() {
+  get hasError(): boolean {
     if (this.state == UIState.NoData) return true;
     else return false;
   }
 
-  get isLoading() {
+  get isLoading(): boolean {
     if (this.state == UIState.Loading) return true;
     else return false;
   }
 
-  get isLoaded() {
+  get isLoaded(): boolean {
     if (this.state == UIState.Loaded) return true;
     else return false;
   }
 
-  filterActivity() {
+  filterActivity(): void {
     this.activityFilters.price = this.activityFilters.priceSlider
       ? this.activityFilters.priceSlider / 100
       : 0;
 
-    Vue.$boredAPI.getActivity(this.activityFilters).then(res => {
+    Vue.$boredAPI.getActivity(this.activityFilters).then((res) => {
       this.selectedActivity = res.data;
 
       if (res.data.error) {
@@ -162,7 +182,7 @@ export default class Home extends Vue {
           type: this.selectedActivity.type,
           participants: this.selectedActivity.participants,
           price: this.selectedActivity.price,
-          priceSlider: this.selectedActivity.price * 100
+          priceSlider: this.selectedActivity.price * 100,
         };
 
         this.state = UIState.Loaded;
@@ -170,28 +190,28 @@ export default class Home extends Vue {
     });
   }
 
-  getRandomActivity() {
+  getRandomActivity(): void {
     this.state = UIState.Loading;
-    Vue.$boredAPI.getActivity().then(res => {
+    Vue.$boredAPI.getActivity().then((res) => {
       this.selectedActivity = res.data;
       this.activityFilters = {
         type: this.selectedActivity.type,
         participants: this.selectedActivity.participants,
         price: this.selectedActivity.price,
-        priceSlider: this.selectedActivity.price * 100
+        priceSlider: this.selectedActivity.price * 100,
       };
 
       this.state = UIState.Loaded;
     });
   }
 
-  saveForLater() {
+  saveForLater(): void {
     if (this.selectedActivity) {
       this.addActivity(this.selectedActivity);
     }
   }
 
-  incrementParticipants() {
+  incrementParticipants(): void {
     if (
       !this.activityFilters.participants ||
       isNaN(this.activityFilters.participants)
@@ -203,7 +223,7 @@ export default class Home extends Vue {
     this.filterActivity();
   }
 
-  decrementParticipants() {
+  decrementParticipants(): void {
     if (
       !this.activityFilters.participants ||
       isNaN(this.activityFilters.participants) ||
@@ -216,14 +236,14 @@ export default class Home extends Vue {
     this.filterActivity();
   }
 
-  created() {
+  created(): void {
     this.getRandomActivity();
   }
 }
 </script>
 <style lang="sass">
 @import "~vuetify/src/styles/styles.sass"
-.action-buttons 
+.action-buttons
   button
     margin-top: 10px
 

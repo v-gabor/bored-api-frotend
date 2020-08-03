@@ -1,11 +1,12 @@
 import _Vue from "vue";
 import { GET_ACTIVITY } from "@/api/activity/index";
-import { ActivityRequestConfig } from "@/types/index";
+import { ActivityRequestConfig, Activity } from "@/types/index";
+import { AxiosResponse } from "axios";
 
 const BoredApi = {
-  install: (Vue: typeof _Vue) => {
+  install: (Vue: typeof _Vue): void => {
     Vue.$boredAPI = {
-      getActivity: (requestParams) => {
+      getActivity: (requestParams): Promise<AxiosResponse<Activity>> => {
         const requestConfig: ActivityRequestConfig = Object.assign(
           {},
           { params: requestParams || {} }

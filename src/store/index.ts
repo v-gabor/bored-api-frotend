@@ -12,7 +12,9 @@ const vuexLocal = new VuexPersistence({
 });
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    appName: "Bored App made with Vue",
+  },
   mutations: {},
   actions: {},
   modules: {

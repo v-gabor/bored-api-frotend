@@ -18,13 +18,13 @@
                 dark
                 class="flex-shrink-1 flex-grow-0 tab-menu"
               >
-                <v-tab v-for="item in items" :key="item.tab" :to="item.path">
-                  {{
+                <v-tab v-for="item in items" :key="item.tab" :to="item.path">{{
                   item.tab
-                  }}
-                </v-tab>
+                }}</v-tab>
               </v-tabs>
-              <router-view class="router-view flex-grow-1 px-6 py-2"></router-view>
+              <router-view
+                class="router-view flex-grow-1 px-6 py-2"
+              ></router-view>
             </div>
           </v-col>
         </v-row>
@@ -42,13 +42,12 @@ export default class Home extends Vue {
   tab = null;
   items = [
     { tab: "Activities", path: "/i-am-boring" },
-    { tab: "My list", path: "/my-activities" }
+    { tab: "My list", path: "/my-activities" },
   ];
 }
 </script>
 
 <style lang="sass">
-
 @import '~vuetify/src/styles/styles.sass'
 
 .router-view, .tab-menu
@@ -57,13 +56,12 @@ export default class Home extends Vue {
 .tab-menu
   border-bottom: 0
 
-.activity-container  
+.activity-container
   height: 100%
   > div
     max-width: 750px
     margin: auto
     width: 100%
-
 
 @media #{map-get($display-breakpoints, 'md-and-up')}
   .activity-container

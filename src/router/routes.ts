@@ -11,17 +11,19 @@ const routes: Array<RouteConfig> = [
       {
         name: "Activity",
         path: "i-am-boring",
-        component: () =>
-          import(
+        component: (): Promise<typeof import("*.vue")> => {
+          return import(
             /* webpackChunkName: "activity" */ "../components/Activity.vue"
-          ),
+          );
+        },
       },
       {
         path: "my-activities",
-        component: () =>
-          import(
+        component: (): Promise<typeof import("*.vue")> => {
+          return import(
             /* webpackChunkName: "my-activities" */ "../components/ActivityList.vue"
-          ),
+          );
+        },
       },
     ],
   },

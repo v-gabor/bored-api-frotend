@@ -13,9 +13,13 @@
                   :headers="headers"
                   :items="activityList"
                 >
-                  <template v-slot:item.price="{ item }">{{ priceWithWord(item.price) }}</template>
+                  <template v-slot:item.price="{ item }">
+                    {{ priceWithWord(item.price) }}
+                  </template>
                   <template v-slot:item.actions="{ item }">
-                    <v-icon @click="removeActivity(item)">mdi-trash-can-outline</v-icon>
+                    <v-icon @click="removeActivity(item)"
+                      >mdi-trash-can-outline</v-icon
+                    >
                   </template>
                 </v-data-table>
               </v-col>
@@ -28,14 +32,19 @@
               block
               class="mr-2 white--text"
               @click="emptyActivityList"
-            >Clear all</v-btn>
+              >Clear all</v-btn
+            >
           </div>
         </div>
 
         <v-row class="text-center fill-height" v-else align="center">
           <v-col>
-            <v-icon class="d-block" style="font-size: 80px;">mdi-tray-remove</v-icon>
-            <span class="title">It seems you have not saved any activity to your list...</span>
+            <v-icon class="d-block" style="font-size: 80px;"
+              >mdi-tray-remove</v-icon
+            >
+            <span class="title"
+              >It seems you have not saved any activity to your list...</span
+            >
           </v-col>
         </v-row>
       </v-col>
@@ -64,15 +73,15 @@ export default class ActivityList extends Vue {
     {
       text: "#",
       align: "start",
-      value: "key"
+      value: "key",
     },
     { text: "Activity", value: "activity" },
     { text: "Participants", value: "participants", align: "center" },
     { text: "Budget", value: "price", align: "center" },
-    { text: "Actions", value: "actions", sortable: false, align: "center" }
+    { text: "Actions", value: "actions", sortable: false, align: "center" },
   ];
 
-  priceWithWord(price: number) {
+  priceWithWord(price: number): string {
     if (price < 0.2) {
       return "cheap";
     } else if (price >= 0.2 && price < 0.4) {
@@ -83,6 +92,8 @@ export default class ActivityList extends Vue {
       return "less expensive";
     } else if (price >= 0.7) {
       return "expensive";
+    } else {
+      return "indeterminable";
     }
   }
 
@@ -91,7 +102,7 @@ export default class ActivityList extends Vue {
    * Fix the table sizing!
    * Find a solution to Vuetify table sizing problem.
    */
-  tableHeight() {
+  tableHeight(): number {
     return this.$vuetify.breakpoint.mdAndUp ? 230 : 480;
   }
 }
