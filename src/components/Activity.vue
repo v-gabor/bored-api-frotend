@@ -172,7 +172,7 @@ export default class Home extends Vue {
       ? this.activityFilters.priceSlider / 100
       : 0;
 
-    Vue.$boredAPI.getActivity(this.activityFilters).then((res) => {
+    this.$boredAPI.getActivity(this.activityFilters).then((res) => {
       this.selectedActivity = res.data;
 
       if (res.data.error) {
@@ -192,7 +192,7 @@ export default class Home extends Vue {
 
   getRandomActivity(): void {
     this.state = UIState.Loading;
-    Vue.$boredAPI.getActivity().then((res) => {
+    this.$boredAPI.getActivity().then((res) => {
       this.selectedActivity = res.data;
       this.activityFilters = {
         type: this.selectedActivity.type,
