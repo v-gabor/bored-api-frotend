@@ -24,9 +24,9 @@
                     class="text-center fill-height headline"
                     align="center"
                   >
-                    <v-col v-if="!isLoading">
-                      {{ selectedActivity.activity }}
-                    </v-col>
+                    <v-col v-if="!isLoading" ref="selectedActivityActivity">{{
+                      selectedActivity.activity
+                    }}</v-col>
                     <v-col v-else>
                       <v-progress-circular
                         :size="50"
@@ -59,6 +59,7 @@
               v-model="activityFilters.type"
               :items="items"
               label="Type"
+              ref="activityFiltersType"
             ></v-autocomplete>
           </div>
           <div class="flex-grow-1">
@@ -67,6 +68,7 @@
               v-model="activityFilters.participants"
               label="Number"
               :rules="numberRule"
+              ref="activityFiltersParticipants"
             >
               <template v-slot:append-outer>
                 <v-btn
@@ -92,6 +94,7 @@
               max="100"
               dense
               hide-details
+              ref="activityFiltersPriceSlider"
             ></v-slider>
             <span class="d-inline-block slider-hint">cheap</span>
             <span class="d-inline-block slider-hint text-right">expensive</span>
@@ -102,6 +105,7 @@
               class="white--text"
               block
               @click="filterActivity"
+              id="newOneButton"
               >Hit me with a new one!</v-btn
             >
           </div>
