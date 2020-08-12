@@ -2,11 +2,7 @@
   <v-container>
     <v-row class="fill-height">
       <v-col cols="12" md="7" class="pt-0 pb-0">
-        <v-row
-          v-if="hasError"
-          class="text-center fill-height activity-are"
-          align="center"
-        >
+        <v-row v-if="hasError" class="text-center fill-height activity-are" align="center">
           <v-col>
             Sorry!
             <br />
@@ -20,19 +16,14 @@
               <span class="headline flex-shrink-1 mb-2">You should:</span>
               <v-card class="flex-grow-1 text-center">
                 <v-card-text class="fill-height">
-                  <v-row
-                    class="text-center fill-height headline"
-                    align="center"
-                  >
-                    <v-col v-if="!isLoading">
-                      {{ selectedActivity.activity }}
+                  <v-row class="text-center fill-height headline" align="center">
+                    <v-col v-if="!isLoading" id="selectedActivityActivity">
+                      {{
+                      selectedActivity.activity
+                      }}
                     </v-col>
                     <v-col v-else>
-                      <v-progress-circular
-                        :size="50"
-                        color="primary"
-                        indeterminate
-                      ></v-progress-circular>
+                      <v-progress-circular :size="50" color="primary" indeterminate></v-progress-circular>
                     </v-col>
                   </v-row>
                 </v-card-text>
@@ -43,8 +34,7 @@
                   class="white--text"
                   block
                   @click="saveForLater"
-                  >Save for later</v-btn
-                >
+                >Save for later</v-btn>
               </div>
             </div>
           </v-col>
@@ -53,7 +43,7 @@
       <v-col cols="12" md="5">
         <div class="d-flex flex-column fill-height">
           <div class="flex-grow-1">Activity details:</div>
-          <div class="flex-grow-1">
+          <div class="flex-grow-1" id="activityFiltersType">
             <v-autocomplete
               @change="filterActivity"
               v-model="activityFilters.type"
@@ -61,7 +51,7 @@
               label="Type"
             ></v-autocomplete>
           </div>
-          <div class="flex-grow-1">
+          <div class="flex-grow-1" id="activityFiltersParticipants">
             <v-text-field
               @change="filterActivity"
               v-model="activityFilters.participants"
@@ -69,12 +59,7 @@
               :rules="numberRule"
             >
               <template v-slot:append-outer>
-                <v-btn
-                  class="ma-0 mr-1"
-                  fab
-                  x-small
-                  @click="decrementParticipants"
-                >
+                <v-btn class="ma-0 mr-1" fab x-small @click="decrementParticipants">
                   <v-icon>mdi-minus</v-icon>
                 </v-btn>
                 <v-btn class="ma-0" fab x-small @click="incrementParticipants">
@@ -83,7 +68,7 @@
               </template>
             </v-text-field>
           </div>
-          <div class="flex-grow-1">
+          <div class="flex-grow-1" id="activityFiltersPriceSlider">
             <span class="slider-label">Budget</span>
             <v-slider
               @change="filterActivity"
@@ -98,12 +83,12 @@
           </div>
           <div class="action-buttons">
             <v-btn
+              id="newOneButton"
               color="#52b9d3"
               class="white--text"
               block
               @click="filterActivity"
-              >Hit me with a new one!</v-btn
-            >
+            >Hit me with a new one!</v-btn>
           </div>
         </div>
       </v-col>
@@ -172,7 +157,7 @@ export default class Home extends Vue {
       ? this.activityFilters.priceSlider / 100
       : 0;
 
-    Vue.$boredAPI.getActivity(this.activityFilters).then((res) => {
+    this.$boredAPI.getActivity(this.activityFilters).then((res) => {
       this.selectedActivity = res.data;
 
       if (res.data.error) {
@@ -192,7 +177,7 @@ export default class Home extends Vue {
 
   getRandomActivity(): void {
     this.state = UIState.Loading;
-    Vue.$boredAPI.getActivity().then((res) => {
+    this.$boredAPI.getActivity().then((res) => {
       this.selectedActivity = res.data;
       this.activityFilters = {
         type: this.selectedActivity.type,
